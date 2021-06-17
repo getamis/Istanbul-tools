@@ -20,14 +20,14 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/consensus/istanbul"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto/sha3"
 	"github.com/ethereum/go-ethereum/rlp"
+	"golang.org/x/crypto/sha3"
 
-	"github.com/getamis/istanbul-tools/cmd/istanbul/extra"
+	"github.com/jpmorganchase/istanbul-tools/cmd/istanbul/extra"
 )
 
 func sigHash(header *types.Header) (hash common.Hash) {
-	hasher := sha3.NewKeccak256()
+	hasher := sha3.NewLegacyKeccak256()
 
 	// Clean seal is required for calculating proposer seal.
 	rlp.Encode(hasher, types.IstanbulFilteredHeader(header, false))

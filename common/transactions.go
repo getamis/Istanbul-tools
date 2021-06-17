@@ -24,7 +24,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/getamis/istanbul-tools/client"
+	"github.com/jpmorganchase/istanbul-tools/client"
 )
 
 var (
@@ -33,7 +33,7 @@ var (
 )
 
 func SendEther(client client.Client, from *ecdsa.PrivateKey, to common.Address, amount *big.Int, nonce uint64) error {
-	tx := types.NewTransaction(nonce, to, amount, big.NewInt(DefaultGasLimit), big.NewInt(DefaultGasPrice), []byte{})
+	tx := types.NewTransaction(nonce, to, amount, uint64(DefaultGasLimit), big.NewInt(0).SetInt64(DefaultGasPrice), []byte{})
 	signedTx, err := types.SignTx(tx, types.HomesteadSigner{}, from)
 	if err != nil {
 		log.Error("Failed to sign transaction", "tx", tx, "err", err)
